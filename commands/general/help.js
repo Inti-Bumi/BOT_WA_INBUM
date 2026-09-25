@@ -37,7 +37,7 @@ module.exports = {
         const panduanUtama = 
 `*📖 PANDUAN PENGGUNAAN BOT WHATSAPP*
 
-Bot ini dirancang untuk grup pertemanan dengan fitur arsip doksli internal, investigasi isu viral/berita resmi internet, dan utility tongkrongan. Gunakan prefix tanda seru (\`!\`).
+Bot ini dirancang untuk grup pertemanan dengan fitur investigasi postingan asli internet, informasi berita terkini, dan utility tongkrongan. Gunakan prefix tanda seru (\`!\`).
 
 ---
 *📌 1. UTILITY & INFORMASI*
@@ -47,20 +47,9 @@ Bot ini dirancang untuk grup pertemanan dengan fitur arsip doksli internal, inve
 • *!myid* : Cek ID WhatsApp kamu & ID grup
 • *!gacha <a | b | c>* : Memilih opsi acak dari pilihan yang dipisah \`|\`
 
-*📁 2. DOKSLI ARSIP GRUP (INTERNAL)*
-_Menyimpan foto aib, screenshot chat, atau quote internal tongkrongan._
-• *!tambahdoksli <nama>* : 
-  👉 *Cara:* Reply foto / video / teks teman, lalu ketik \`!tambahdoksli nama_kunci\`
-• *!doksli <nama>* : 
-  👉 Memanggil & menampilkan kembali bukti foto/teks yang pernah disimpan
-• *!listdoksli* : 
-  👉 Melihat seluruh daftar nama doksli yang tersimpan di grup ini
-• *!hapusdoksli <nama>* : 
-  👉 Menghapus arsip doksli dari database grup
-
-*🌐 3. DOKSLI ISU INTERNET & INFORMASI*
-• *!doksli <topik_internet>* : 
-  👉 Investigasi doksli & rangkuman berita terverifikasi dari portal resmi
+*🌐 2. DOKSLI & INTERNET*
+• *!doksli <nama/topik>* : 
+  👉 Investigasi doksli & cari postingan asli di X, TikTok, IG, FB, Reddit
 • *!trending* / *!berita* : 
   👉 Menampilkan topik & isu terpanas hari ini di Indonesia
 • *!wiki <topik>* : 
@@ -74,3 +63,4 @@ _Menyimpan foto aib, screenshot chat, atau quote internal tongkrongan._
         await msg.reply(panduanUtama);
     }
 };
+

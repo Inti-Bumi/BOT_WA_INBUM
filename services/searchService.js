@@ -24,21 +24,45 @@ function detectSocialPlatform(url, title = '') {
     return '🏛️ Media / Portal Web';
 }
 
-// 1. Tavily AI Search (AI Summary + Direct Social Media & Web Links)
+// 1. Tavily AI Search (Advanced Deep Search + Force Social Media Domains)
+const FORCED_SOCIAL_DOMAINS = [
+    'x.com',
+    'twitter.com',
+    'facebook.com',
+    'instagram.com',
+    'tiktok.com',
+    'reddit.com',
+    'threads.net',
+    'youtube.com'
+];
+
 async function searchWithTavily(query) {
     const apiKey = process.env.TAVILY_API_KEY;
     if (!apiKey) return null;
 
     try {
-        const res = await axios.post('https://api.tavily.com/search', {
+        // Coba pencarian mendalam yang difokuskan ke platform media sosial
+        let res = await axios.post('https://api.tavily.com/search', {
             api_key: apiKey,
             query: query,
-            search_depth: 'basic',
+            search_depth: 'advanced',
+            include_domains: FORCED_SOCIAL_DOMAINS,
             include_answer: true,
             max_results: 5
-        }, { timeout: 10000 });
+        }, { timeout: 15000 });
 
-        if (res.data && Array.isArray(res.data.results)) {
+        // Jika pencarian force sosmed kurang dari 2 hasil, fallback ke unconstrained advanced search
+        if (!res.data || !Array.isArray(res.data.results) || res.data.results.length < 2) {
+            res = await axios.post('https://api.tavily.com/search', {
+                api_key: apiKey,
+                query: `${query} (site:x.com OR site:twitter.com OR site:facebook.com OR site:tiktok.com OR site:instagram.com OR site:reddit.com)`,
+                search_depth: 'advanced',
+                include_answer: true,
+                max_results: 5
+            }, { timeout: 15000 });
+        }
+
+        if (res.data && Array.isArray(res.data.results) && res.data.results.length > 0) {
             return {
                 summary: res.data.answer || null,
                 items: res.data.results.map(r => ({
